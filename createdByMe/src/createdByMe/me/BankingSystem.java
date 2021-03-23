@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class BankingSystem {
 	protected static double openBalance;
+	protected static double totalBalance;
 
 	public static void main(String[] args) {
 		final int Username=0000;
@@ -58,8 +59,13 @@ public class BankingSystem {
 	            	createAccount();
 	                    break;
 	            case 2: 
-	            	deposit();
+	            	deposit(openBalance);
 	                    break;
+	            case 3:
+	            withdraw(totalBalance);
+	            case 4:
+	            	checkBalance();
+	            	
 	            case 5:
 	            	 System.out.println("Thanks for banking with us. Goodbye!");
 	                 System.exit(0); 
@@ -72,7 +78,6 @@ public class BankingSystem {
 			}
 			}
 			
-	        
 			
 		}
 			
@@ -94,15 +99,31 @@ private static void createAccount() {
 	
     
 }
-private static void deposit() {
+private static void deposit(double openBalance) {
 	System.out.println("Enter Amount to Deposit: ");
 	@SuppressWarnings("resource")
 	Scanner input = new Scanner(System.in);
 		double deposit=input.nextDouble();
-		System.out.println("Amount Deposited : "+ deposit );
+		totalBalance=deposit + openBalance;
+		System.out.println("Amount Deposited : "+ deposit+ " Total Balance: "+  totalBalance);
 		//createAccount(openBalance);
 	
 	
+}
+private static void withdraw(double totalBalance) {
+	System.out.println("Enter Amount to withdraw: ");
+	@SuppressWarnings("resource")
+	Scanner input = new Scanner(System.in);
+		double minus=input.nextDouble();
+	if(minus>totalBalance) {
+		System.out.println("Not Enough Amount to withdraw "+ minus+ ". Kindly try with lower amount");
+	}else if(minus<totalBalance) {
+		System.out.println("You have withdrawn " + minus + "Account Balance is: "+ (totalBalance-minus));
+	}
+	
+}
+private static void checkBalance() {
+	System.out.println(totalBalance);
 }
 
 }
